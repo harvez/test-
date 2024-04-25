@@ -1,5 +1,29 @@
 # This workflow will build a golang project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+# package main
+
+import (
+    "fmt"
+    "github.com/showwin/speedtest-go/speedtest"
+)
+
+func main() {
+    // Create a new speedtest client
+    client := speedtest.NewClient()
+
+    // Get the closest speedtest.net server
+    server, err := client.GetServer("")
+    if err != nil {
+        fmt.Println("Error:", err)
+        return
+    }
+
+    // Perform a speed test
+    downloadSpeed, uploadSpeed := client.Test(server)
+    
+    // Print the results
+    fmt.Printf("Download Speed: %.2f Mbps\n", downloadSpeed/1024/1024)
+    fmt.Printf("Upload Speed: %.2f Mbps\n", uploadSpeed/1024/1024)
+}For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
 
 name: Go
 
